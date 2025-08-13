@@ -12,6 +12,8 @@ export class UsersController {
   @Get()
   async findAll(): Promise<UserResponseDto[]> {
     const users = await this.usersService.findAll();
-    return users.map(user => plainToInstance(UserResponseDto, user, { excludeExtraneousValues: true }));
+    return users.map((user) =>
+      plainToInstance(UserResponseDto, user, { excludeExtraneousValues: true }),
+    );
   }
 }

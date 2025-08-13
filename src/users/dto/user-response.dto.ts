@@ -11,11 +11,11 @@ export class UserResponseDto {
   name: string;
 
   @Expose()
-  @Transform(({ value }) => value.toISOString())
+  @Transform(({ value }) => (value as Date).toISOString())
   createdAt: Date;
 
   @Expose()
-  @Transform(({ value }) => value.toISOString())
+  @Transform(({ value }) => (value as Date).toISOString())
   updatedAt: Date;
 
   constructor(partial: Partial<UserResponseDto>) {

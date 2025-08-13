@@ -1,6 +1,15 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
-import { IUserService, IUser, ICreateUser, IUpdateUser } from './types/user.types';
+import {
+  IUserService,
+  IUser,
+  ICreateUser,
+  IUpdateUser,
+} from './types/user.types';
 
 @Injectable()
 export class UsersService implements IUserService {

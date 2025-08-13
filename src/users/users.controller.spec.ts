@@ -53,14 +53,14 @@ describe('UsersController', () => {
       jest.spyOn(service, 'findAll').mockResolvedValue(mockUsers);
 
       const result = await controller.findAll();
-      
+
       // Verifica se o resultado é um array de UserResponseDto
       expect(Array.isArray(result)).toBe(true);
       expect(result[0]).toBeInstanceOf(UserResponseDto);
       expect(result[0].id).toBe('1');
       expect(result[0].email).toBe('test@example.com');
       expect(result[0].name).toBe('Test User');
-      expect(service.findAll).toHaveBeenCalled();
+      expect(jest.mocked(service.findAll)).toHaveBeenCalled();
     });
   });
 });

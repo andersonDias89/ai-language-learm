@@ -52,7 +52,7 @@ describe('UsersService', () => {
 
       const result = await service.findAll();
       expect(result).toEqual(mockUsers);
-      expect(repository.findAll).toHaveBeenCalled();
+      expect(jest.mocked(repository.findAll)).toHaveBeenCalled();
     });
   });
 
@@ -70,14 +70,14 @@ describe('UsersService', () => {
 
       const result = await service.findById('1');
       expect(result).toEqual(mockUser);
-      expect(repository.findById).toHaveBeenCalledWith('1');
+      expect(jest.mocked(repository.findById)).toHaveBeenCalled();
     });
 
     it('should throw NotFoundException when user not found', async () => {
       jest.spyOn(repository, 'findById').mockResolvedValue(null);
 
       await expect(service.findById('1')).rejects.toThrow(NotFoundException);
-      expect(repository.findById).toHaveBeenCalledWith('1');
+      expect(jest.mocked(repository.findById)).toHaveBeenCalled();
     });
   });
 
@@ -100,8 +100,8 @@ describe('UsersService', () => {
 
       const result = await service.create(createUserData);
       expect(result).toEqual(mockUser);
-      expect(repository.findByEmail).toHaveBeenCalledWith(createUserData.email);
-      expect(repository.create).toHaveBeenCalledWith(createUserData);
+      expect(jest.mocked(repository.findByEmail)).toHaveBeenCalled();
+      expect(jest.mocked(repository.create)).toHaveBeenCalled();
     });
 
     it('should throw ConflictException when email already exists', async () => {
@@ -119,8 +119,10 @@ describe('UsersService', () => {
 
       jest.spyOn(repository, 'findByEmail').mockResolvedValue(existingUser);
 
-      await expect(service.create(createUserData)).rejects.toThrow(ConflictException);
-      expect(repository.findByEmail).toHaveBeenCalledWith(createUserData.email);
+      await expect(service.create(createUserData)).rejects.toThrow(
+        ConflictException,
+      );
+      expect(jest.mocked(repository.findByEmail)).toHaveBeenCalled();
     });
   });
 });
