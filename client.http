@@ -38,12 +38,11 @@ Authorization: Bearer {{authToken}}
 Content-Type: {{contentType}}
 
 ### ========================================
-### TESTES DE ROTAS PROTEGIDAS
+### TESTES DE ROTAS PÚBLICAS
 ### ========================================
 
-### 5. Listar todos os usuários (rota protegida)
+### 5. Listar todos os usuários (rota pública - não precisa de token)
 GET {{baseUrl}}/users
-Authorization: Bearer {{authToken}}
 Content-Type: {{contentType}}
 
 ### ========================================
@@ -52,8 +51,4 @@ Content-Type: {{contentType}}
 
 ### 6. Tentar acessar perfil sem token (deve retornar 401)
 GET {{baseUrl}}/auth/profile
-Content-Type: {{contentType}}
-
-### 7. Tentar listar usuários sem token (deve retornar 401)
-GET {{baseUrl}}/users
 Content-Type: {{contentType}}

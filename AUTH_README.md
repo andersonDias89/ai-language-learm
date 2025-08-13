@@ -68,11 +68,11 @@ npx prisma generate
 | POST | `/auth/login` | Fazer login | ❌ |
 | GET | `/auth/profile` | Obter perfil do usuário | ✅ |
 
-### Usuários (Protegidas)
+### Usuários (Públicas)
 
 | Método | Rota | Descrição | Autenticação |
 |--------|------|-----------|--------------|
-| GET | `/users` | Listar todos os usuários | ✅ |
+| GET | `/users` | Listar todos os usuários | ❌ |
 
 ## 🔐 Como Usar
 
