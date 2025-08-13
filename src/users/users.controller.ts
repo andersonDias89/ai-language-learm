@@ -1,11 +1,13 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, UseInterceptors, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dto';
 import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { plainToInstance } from 'class-transformer';
 
 @Controller('users')
 @UseInterceptors(TransformInterceptor)
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

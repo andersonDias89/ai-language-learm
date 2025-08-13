@@ -1,3 +1,86 @@
-### Listar todos os usuários
-GET http://localhost:3000/users
-Content-Type: application/json
+### ========================================
+### CONFIGURAÇÕES GLOBAIS
+### ========================================
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### ========================================
+### TESTES DE AUTENTICAÇÃO
+### ========================================
+
+### 1. Registrar novo usuário
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+  "name": "João Silva",
+  "email": "joao@example.com",
+  "password": "123456"
+}
+
+### 2. Fazer login e capturar token automaticamente
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "joao@example.com",
+  "password": "123456"
+}
+
+### 3. Extrair token da resposta do login
+@authToken = {{login.response.body.access_token}}
+
+### 4. Obter perfil do usuário (usa token capturado automaticamente)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+### ========================================
+### TESTES COM USUÁRIOS DO SEED
+### ========================================
+
+### 5. Login com usuário do seed
+# @name loginSeed
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "joao.silva@email.com",
+  "password": "123456"
+}
+
+### 6. Extrair token do usuário do seed
+@authTokenSeed = {{loginSeed.response.body.access_token}}
+
+### 7. Obter perfil do usuário do seed
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{authTokenSeed}}
+Content-Type: {{contentType}}
+
+### ========================================
+### TESTES DE ROTAS PROTEGIDAS
+### ========================================
+
+### 8. Listar todos os usuários (rota protegida)
+GET {{baseUrl}}/users
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+### 9. Listar usuários com token do seed
+GET {{baseUrl}}/users
+Authorization: Bearer {{authTokenSeed}}
+Content-Type: {{contentType}}
+
+### ========================================
+### TESTES DE ERRO (sem autenticação)
+### ========================================
+
+### 10. Tentar acessar perfil sem token (deve retornar 401)
+GET {{baseUrl}}/auth/profile
+Content-Type: {{contentType}}
+
+### 11. Tentar listar usuários sem token (deve retornar 401)
+GET {{baseUrl}}/users
+Content-Type: {{contentType}}

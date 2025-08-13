@@ -2,6 +2,8 @@ export interface IUser {
   id: string;
   email: string;
   name: string;
+  password: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -9,11 +11,14 @@ export interface IUser {
 export interface ICreateUser {
   email: string;
   name: string;
+  password: string;
 }
 
 export interface IUpdateUser {
   email?: string;
   name?: string;
+  password?: string;
+  isActive?: boolean;
 }
 
 export interface IUserRepository {
