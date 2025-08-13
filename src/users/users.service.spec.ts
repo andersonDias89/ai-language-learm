@@ -43,6 +43,8 @@ describe('UsersService', () => {
           id: '1',
           email: 'test@example.com',
           name: 'Test User',
+          password: 'hashedPassword',
+          isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -62,6 +64,8 @@ describe('UsersService', () => {
         id: '1',
         email: 'test@example.com',
         name: 'Test User',
+        password: 'hashedPassword',
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -86,11 +90,13 @@ describe('UsersService', () => {
       const createUserData = {
         email: 'test@example.com',
         name: 'Test User',
+        password: 'hashedPassword',
       };
 
       const mockUser = {
         id: '1',
         ...createUserData,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -108,11 +114,13 @@ describe('UsersService', () => {
       const createUserData = {
         email: 'test@example.com',
         name: 'Test User',
+        password: 'hashedPassword',
       };
 
       const existingUser = {
         id: '1',
         ...createUserData,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

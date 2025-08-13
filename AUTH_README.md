@@ -56,11 +56,7 @@ npx prisma migrate dev --name add-auth-fields
 npx prisma generate
 ```
 
-### Seed de Usuários
 
-```bash
-npm run seed:users
-```
 
 ## 🛣️ Rotas da API
 
