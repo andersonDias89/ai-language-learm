@@ -1,0 +1,54 @@
+### ========================================
+### CONFIGURAÇÕES GLOBAIS
+### ========================================
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### ========================================
+### TESTES DE AUTENTICAÇÃO
+### ========================================
+
+### 1. Registrar novo usuário
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+  "name": "João Silva",
+  "email": "joao@example.com",
+  "password": "123456"
+}
+
+### 2. Fazer login e capturar token automaticamente
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "joao@example.com",
+  "password": "123456"
+}
+
+### 3. Extrair token da resposta do login
+@authToken = {{login.response.body.access_token}}
+
+### 4. Obter perfil do usuário (usa token capturado automaticamente)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+### ========================================
+### TESTES DE ROTAS PÚBLICAS
+### ========================================
+
+### 5. Listar todos os usuários (rota pública - não precisa de token)
+GET {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+### ========================================
+### TESTES DE ERRO (sem autenticação)
+### ========================================
+
+### 6. Tentar acessar perfil sem token (deve retornar 401)
+GET {{baseUrl}}/auth/profile
+Content-Type: {{contentType}}
